@@ -1,0 +1,22 @@
+---
+import type { Proyecto } from "../data/perfil";
+interface Props { p: Proyecto }
+const { p } = Astro.props;
+---
+<article class="tarjeta aparece flex h-full flex-col hover:-translate-y-0.5 hover:shadow-md" data-categoria={p.categoria}>
+  <div class="flex items-start justify-between gap-3">
+    <span class="text-xs font-semibold uppercase tracking-wider text-tec-600 dark:text-tec-400">{p.categoria}</span>
+    {p.destacado && <span class="rounded-full bg-marino-900 px-2 py-0.5 text-[11px] font-semibold text-white dark:bg-tec-600">Destacado</span>}
+  </div>
+  <h3 class="mt-3 text-xl font-bold text-marino-900 dark:text-white">{p.nombre}</h3>
+  <p class="mt-2 text-sm font-medium text-slate-800 dark:text-slate-200"><span class="sr-only">Propósito: </span>{p.proposito}</p>
+  <p class="mt-3 flex-1 text-sm leading-relaxed">{p.descripcion}</p>
+  <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Tecnologías">{p.tecnologias.map((t) => <li class="chip">{t}</li>)}</ul>
+  <div class="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4 text-sm dark:border-marino-800">
+    <span class="text-slate-500 dark:text-slate-400">{p.estado}</span>
+    <span class="flex gap-4">
+      <a class="enlace" href={p.repo} target="_blank" rel="noopener noreferrer">Código<span class="sr-only"> de {p.nombre} (abre en otra pestaña)</span></a>
+      {p.demo && <a class="enlace" href={p.demo} target="_blank" rel="noopener noreferrer">Ver en vivo<span class="sr-only"> {p.nombre} (abre en otra pestaña)</span></a>}
+    </span>
+  </div>
+</article>
