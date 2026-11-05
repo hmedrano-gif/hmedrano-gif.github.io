@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", ui-sans-serif, sans-serif;
+  --color-marino-950: #06142b;
+  --color-marino-900: #0b1f3a;
+  --color-marino-800: #13305a;
+  --color-marino-700: #1c4278;
+  --color-tec-600: #1d5fd1;
+  --color-tec-500: #2f7bf5;
+  --color-tec-400: #5b9bff;
+  --color-tec-100: #e3eeff;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+
+body { @apply bg-white text-slate-700 dark:bg-marino-950 dark:text-slate-300 antialiased; }
+h1, h2, h3 { font-family: var(--font-display); }
+:focus-visible { outline: 3px solid var(--color-tec-500); outline-offset: 2px; border-radius: 6px; }
+
+.contenedor { @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8; }
+.chip { @apply inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-medium text-slate-700 dark:border-marino-700 dark:bg-marino-900 dark:text-slate-300; }
+.tarjeta { @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition dark:border-marino-800 dark:bg-marino-900; }
+.enlace { @apply font-semibold text-tec-600 underline-offset-4 hover:underline dark:text-tec-400; }
+
+.aparece { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+.aparece.visto { opacity: 1; transform: none; }
+.sin-js .aparece { opacity: 1; transform: none; }
