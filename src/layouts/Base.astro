@@ -1,0 +1,49 @@
+---
+import "../styles/global.css";
+import { perfil } from "../data/perfil";
+interface Props { titulo?: string; descripcion?: string }
+const { titulo = `${perfil.nombre} · ${perfil.titular}`, descripcion = perfil.propuesta } = Astro.props;
+const canonica = new URL(Astro.url.pathname, Astro.site ?? perfil.url).href;
+const base = import.meta.env.BASE_URL;
+const ld = {
+  "@context": "https://schema.org", "@type": "Person", name: perfil.nombre, jobTitle: "Ingeniero de Sistemas",
+  address: { "@type": "PostalAddress", addressLocality: "Cartagena", addressCountry: "CO" },
+  url: perfil.url, sameAs: [perfil.github, perfil.githubProyectos],
+};
+---
+<!doctype html>
+<html lang="es" class="sin-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={canonica} />
+    <meta name="theme-color" content="#0b1f3a" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:url" content={canonica} />
+    <meta property="og:locale" content="es_CO" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <script is:inline>
+      document.documentElement.classList.remove("sin-js");
+      try {
+        const g = localStorage.getItem("tema");
+        if (g === "oscuro" || (!g && matchMedia("(prefers-color-scheme: dark)").matches)) document.documentElement.classList.add("dark");
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <a href="#inicio" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded focus:bg-white focus:px-3 focus:py-2">Saltar al contenido</a>
+    <slot />
+    <script is:inline>
+      const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("visto"); io.unobserve(e.target); } }), { threshold: 0.12 }) : null;
+      document.querySelectorAll(".aparece").forEach((el) => (io ? io.observe(el) : el.classList.add("visto")));
+    </script>
+  </body>
+</html>
