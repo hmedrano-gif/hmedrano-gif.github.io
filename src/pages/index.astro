@@ -68,6 +68,14 @@ const anio = new Date().getFullYear();
               ))}
             </ul>
           </div>
+          <div class="tarjeta mt-6">
+            <h3 class="text-xl font-bold text-marino-900 dark:text-white">Certificaciones y formación complementaria</h3>
+            <ul class="mt-4 space-y-2 text-sm">
+              {perfil.certificaciones.map((c) => (
+                <li class="flex justify-between gap-3"><span>{c.t}</span>{c.f && <span class="shrink-0 text-slate-500 dark:text-slate-400">{c.f}</span>}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </Seccion>
