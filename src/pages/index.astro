@@ -1,0 +1,160 @@
+---
+import Base from "../layouts/Base.astro";
+import Navegacion from "../components/Navegacion.astro";
+import Seccion from "../components/Seccion.astro";
+import TarjetaProyecto from "../components/TarjetaProyecto.astro";
+import { perfil, proyectos, tecnologias, docencia, investigacion } from "../data/perfil";
+const categorias = ["Todos", ...new Set(proyectos.map((p) => p.categoria))];
+const anio = new Date().getFullYear();
+---
+<Base>
+  <Navegacion />
+  <main>
+    <!-- Inicio -->
+    <section id="inicio" class="relative overflow-hidden bg-marino-900 pt-32 pb-20 text-white sm:pt-40 sm:pb-28">
+      <div class="pointer-events-none absolute inset-0 opacity-40" aria-hidden="true"
+        style="background-image: radial-gradient(circle at 80% 10%, rgba(47,123,245,.45), transparent 45%), linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: auto, 40px 40px, 40px 40px;"></div>
+      <div class="contenedor relative">
+        <p class="aparece inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1 text-sm text-slate-200">
+          <span class="h-1.5 w-1.5 rounded-full bg-tec-400"></span>{perfil.ciudad}
+        </p>
+        <h1 class="aparece mt-6 max-w-4xl text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">{perfil.nombre}</h1>
+        <p class="aparece mt-4 max-w-3xl text-lg font-medium text-tec-100 sm:text-xl">{perfil.titular}</p>
+        <p class="aparece mt-6 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">{perfil.propuesta}</p>
+        <div class="aparece mt-10 flex flex-wrap gap-3">
+          <a href="#proyectos" class="rounded-xl bg-tec-500 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-tec-600/30 hover:bg-tec-600">Ver proyectos</a>
+          <a href="#docencia" class="rounded-xl border border-white/25 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">Docencia</a>
+          <a href={perfil.github} target="_blank" rel="noopener noreferrer" class="rounded-xl border border-white/25 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">GitHub</a>
+        </div>
+        <ul class="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {perfil.areas.map((a) => (
+            <li class="aparece rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+              <h2 class="text-base font-bold text-white">{a.t}</h2>
+              <p class="mt-1 text-sm text-slate-300">{a.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Sobre mí -->
+    <Seccion id="sobre-mi" etiqueta="Sobre mí" titulo="Ingeniería que se puede verificar">
+      <div class="grid gap-12 lg:grid-cols-5">
+        <div class="aparece space-y-4 text-lg leading-relaxed lg:col-span-3">
+          {perfil.sobreMi.map((t) => <p>{t}</p>)}
+          <h3 class="pt-6 text-xl font-bold text-marino-900 dark:text-white">Trayectoria</h3>
+          <ol class="relative space-y-6 border-l-2 border-slate-200 pl-6 dark:border-marino-800">
+            {perfil.experiencia.map((e) => (
+              <li class="relative">
+                <span class="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 border-white bg-tec-500 dark:border-marino-950" aria-hidden="true"></span>
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{e.fecha}</p>
+                <p class="text-base font-bold text-marino-900 dark:text-white">{e.rol}</p>
+                <p class="text-sm">{e.lugar}</p>
+                {e.puntos.length > 0 && <ul class="mt-2 list-disc space-y-1 pl-5 text-sm">{e.puntos.map((p) => <li>{p}</li>)}</ul>}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div class="aparece lg:col-span-2">
+          <div class="tarjeta">
+            <h3 class="text-xl font-bold text-marino-900 dark:text-white">Formación</h3>
+            <ul class="mt-4 divide-y divide-slate-100 dark:divide-marino-800">
+              {perfil.formacion.map((f) => (
+                <li class="py-3">
+                  <p class="font-semibold text-marino-900 dark:text-white">{f.titulo}</p>
+                  <p class="text-sm">{f.lugar} · {f.fecha}</p>
+                  {f.nota && <p class="text-sm text-tec-600 dark:text-tec-400">{f.nota}</p>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </Seccion>
+
+    <!-- Proyectos -->
+    <Seccion id="proyectos" etiqueta="Proyectos" titulo="Proyectos con código abierto" intro="Cada proyecto enlaza a su repositorio público, para que puedas revisar el código." gris>
+      <div class="mb-8 flex flex-wrap gap-2" role="group" aria-label="Filtrar proyectos por categoría">
+        {categorias.map((c, i) => (
+          <button type="button" class="filtro rounded-full border px-4 py-1.5 text-sm font-medium transition" data-filtro={c} aria-pressed={i === 0 ? "true" : "false"}>{c}</button>
+        ))}
+      </div>
+      <div id="rejilla" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {proyectos.map((p) => <TarjetaProyecto p={p} />)}
+      </div>
+    </Seccion>
+
+    <!-- Tecnologías -->
+    <Seccion id="tecnologias" etiqueta="Tecnologías" titulo="Herramientas con las que trabajo" intro="Herramientas que uso en proyectos, en consultoría y en clase.">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {tecnologias.map((g) => (
+          <div class="tarjeta aparece">
+            <h3 class="text-base font-bold text-marino-900 dark:text-white">{g.grupo}</h3>
+            <ul class="mt-3 flex flex-wrap gap-1.5">{g.items.map((t) => <li class="chip">{t}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </Seccion>
+
+    <!-- Docencia -->
+    <Seccion id="docencia" etiqueta="Docencia" titulo="Formación con datos reales" intro="Materiales que diseño para las asignaturas y programas en los que participo como docente. Las instituciones se mencionan como contexto académico." gris>
+      <ul class="grid gap-4 md:grid-cols-2">
+        {docencia.map((d) => (
+          <li class="tarjeta aparece flex flex-col">
+            <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{d.contexto} · {d.fecha}</p>
+            <h3 class="mt-2 text-lg font-bold text-marino-900 dark:text-white">{d.curso}</h3>
+            <p class="mt-1 flex-1 text-sm">{d.programa}</p>
+            {d.enlace && <a class="enlace mt-4 text-sm" href={d.enlace} target="_blank" rel="noopener noreferrer">Ver materiales<span class="sr-only"> de {d.curso}</span> →</a>}
+          </li>
+        ))}
+      </ul>
+    </Seccion>
+
+    <!-- Investigación -->
+    <Seccion id="investigacion" etiqueta="Investigación e innovación" titulo="Preguntas que vale la pena responder">
+      <div class="grid gap-6 lg:grid-cols-3">
+        {investigacion.map((r) => (
+          <article class="tarjeta aparece flex flex-col">
+            <p class="text-xs font-semibold uppercase tracking-wider text-tec-600 dark:text-tec-400">{r.tipo}</p>
+            <h3 class="mt-2 text-lg font-bold text-marino-900 dark:text-white">{r.titulo}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed">{r.texto}</p>
+            <a class="enlace mt-4 text-sm" href={r.enlace} target="_blank" rel="noopener noreferrer">Ver más<span class="sr-only"> sobre {r.titulo}</span> →</a>
+          </article>
+        ))}
+      </div>
+    </Seccion>
+
+    <!-- Contacto -->
+    <section id="contacto" class="scroll-mt-16 bg-marino-900 py-20 text-white">
+      <div class="contenedor aparece text-center">
+        <p class="text-sm font-semibold uppercase tracking-widest text-tec-400">Contacto</p>
+        <h2 class="mt-2 text-3xl font-extrabold sm:text-4xl">Hablemos de datos, IA o formación</h2>
+        <p class="mx-auto mt-4 max-w-xl text-slate-300">Estoy en {perfil.ciudad}. La forma más directa de contactarme es por GitHub.</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a href={perfil.github} target="_blank" rel="noopener noreferrer" class="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-marino-900 hover:bg-tec-100">github.com/hmedrano-gif</a>
+          <a href={perfil.githubProyectos} target="_blank" rel="noopener noreferrer" class="rounded-xl border border-white/25 px-5 py-3 text-sm font-semibold hover:bg-white/10">Proyectos en hmotecnologico-create</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="border-t border-slate-200 py-8 text-center text-sm text-slate-500 dark:border-marino-800 dark:text-slate-400">
+    <p>© {anio} {perfil.nombre}. Sitio construido con Astro y Tailwind CSS a partir de la plantilla <a class="enlace" href="https://github.com/RyanFitzgerald/devportfolio" target="_blank" rel="noopener noreferrer">devportfolio</a> (licencia MIT).</p>
+  </footer>
+</Base>
+
+<script is:inline>
+  const botones = document.querySelectorAll(".filtro");
+  const pinta = () => botones.forEach((b) => {
+    const on = b.getAttribute("aria-pressed") === "true";
+    b.className = "filtro rounded-full border px-4 py-1.5 text-sm font-medium transition " + (on
+      ? "border-marino-900 bg-marino-900 text-white dark:border-tec-500 dark:bg-tec-600"
+      : "border-slate-300 bg-white text-slate-700 hover:border-tec-500 dark:border-marino-700 dark:bg-marino-900 dark:text-slate-200");
+  });
+  botones.forEach((b) => b.addEventListener("click", () => {
+    botones.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    const f = b.dataset.filtro;
+    document.querySelectorAll("#rejilla > article").forEach((a) => { a.hidden = !(f === "Todos" || a.dataset.categoria === f); });
+    pinta();
+  }));
+  pinta();
+</script>
