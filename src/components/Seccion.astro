@@ -1,0 +1,14 @@
+---
+interface Props { id: string; etiqueta: string; titulo: string; intro?: string; gris?: boolean }
+const { id, etiqueta, titulo, intro, gris = false } = Astro.props;
+---
+<section id={id} class:list={["scroll-mt-16 py-20 sm:py-24", gris && "bg-slate-50 dark:bg-marino-900/40"]}>
+  <div class="contenedor">
+    <div class="aparece max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-widest text-tec-600 dark:text-tec-400">{etiqueta}</p>
+      <h2 class="mt-2 text-3xl font-extrabold tracking-tight text-marino-900 sm:text-4xl dark:text-white">{titulo}</h2>
+      {intro && <p class="mt-4 text-lg leading-relaxed">{intro}</p>}
+    </div>
+    <div class="mt-12"><slot /></div>
+  </div>
+</section>
