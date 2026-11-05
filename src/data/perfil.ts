@@ -21,7 +21,7 @@ export const perfil = {
   ],
   sobreMi: [
     "Soy Ingeniero de Sistemas, especialista en Telecomunicaciones y en Seguridad en Redes, con formación avanzada en Big Data, Inteligencia Artificial y Análisis y Visualización de Datos Masivos.",
-    "Llevo más de veinte años entre la docencia universitaria, el análisis de datos y las telecomunicaciones. Mi trabajo une dos mundos: construyo soluciones técnicas y enseño a otros a construirlas, siempre con evidencia de que el resultado es correcto.",
+    "Desde 2004 trabajo entre la ingeniería de sistemas, la docencia (SENA desde 2006, Universidad de Cartagena de 2011 a 2021) y el análisis de datos. Mi trabajo une dos mundos: construyo soluciones técnicas y enseño a otros a construirlas, siempre con evidencia de que el resultado es correcto.",
   ],
   formacion: [
     { titulo: "Máster en Análisis y Visualización de Datos Masivos", lugar: "UNIR (España)", fecha: "2025 – 2026", nota: "Trabajo Fin de Máster: ClinDoc Agent" },
@@ -30,12 +30,24 @@ export const perfil = {
     { titulo: "Especialización en Telecomunicaciones", lugar: "UNAB", fecha: "2007" },
     { titulo: "Ingeniería de Sistemas", lugar: "Universidad Tecnológica de Bolívar", fecha: "2006" },
   ],
+  // Experiencia: hoja de vida del SENA (APE, F:\HMO\Personal\HV_APE_SENA.pdf, nov-2026) y hoja de vida 2025.
   experiencia: [
     { rol: "Docente de posgrado y educación continua", lugar: "Especialización en Analítica de Datos (CURN) · UNICOLOMBO", fecha: "2026", puntos: ["Tecnologías de Procesamiento de Datos: Hadoop, Spark, Kafka, BigQuery y Power BI con datos reales.", "Power BI aplicado a la gestión pública; diplomado y electivas de análisis de datos."] },
-    { rol: "Docente de formación profesional", lugar: "SENA · Centro Internacional Náutico, Fluvial y Portuario", fecha: "2022 – actual", puntos: ["Formación técnica en tecnología y datos; mentoría del concurso MinTIC Datos al Ecosistema 2026."] },
+    { rol: "Instructor de informática y telecomunicaciones", lugar: "SENA · centros Náutico Fluvial y Portuario, Industria Petroquímica, Industrial, Comercio y Servicios, y Agroempresarial y Minero", fecha: "2006 – actual", puntos: ["Diseño curricular, comités técnicos y material didáctico; formación presencial y virtual.", "Mentoría del concurso MinTIC Datos al Ecosistema 2026."] },
+    { rol: "Docente universitario", lugar: "Universidad Sergio Arboleda (mentor) · Fundación Universitaria Tecnológico Comfenalco", fecha: "2024 – 2025", puntos: [] },
     { rol: "Ingeniero de Sistemas · Proyecto Canal del Dique", lugar: "ALDESARROLLO", fecha: "2023", puntos: ["Tableros en Power BI de indicadores socioeconómicos.", "Procesos ETL con SQL y modelos predictivos en Python (Pandas, Scikit-learn)."] },
-    { rol: "Docente universitario", lugar: "Fundación Universitaria Tecnológico Comfenalco · Universidad Sergio Arboleda", fecha: "2024 – 2025", puntos: [] },
-    { rol: "Docente universitario", lugar: "Universidad de Cartagena", fecha: "2010 – 2021", puntos: [] },
+    { rol: "Docente de educación superior", lugar: "Universidad de Cartagena", fecha: "2011 – 2021", puntos: ["Veinte semestres de docencia en ingeniería."] },
+    { rol: "Ingeniero de Sistemas y tutor virtual", lugar: "Heymolqs · Indumats · SAII Consulting · Colegio San Pedro Claver", fecha: "2014 – 2018", puntos: ["Redes y comunicaciones, soporte de sistemas y tutoría en virtualización."] },
+    { rol: "Ingeniero de Sistemas y docente", lugar: "UNAD · Red de Universidades Públicas del Eje Cafetero (Alma Máter)", fecha: "2005 – 2007", puntos: ["Recolección de información estadística asistida por computador."] },
+  ],
+  certificaciones: [
+    { t: "Microsoft Technology Associate: Networking Fundamentals", f: "2019" },
+    { t: "Panduit Network Infrastructure (Cisco Systems)", f: "2007" },
+    { t: "Diplomado en Comunicaciones y Redes · Universidad Tecnológica de Bolívar", f: "2006" },
+    { t: "Diplomado en recolección de información estadística asistida por computador · Alma Máter", f: "2005" },
+    { t: "Tutor en ambientes virtuales de aprendizaje: Moodle · SENA", f: "2008" },
+    { t: "Herramientas LMS Blackboard · SENA", f: "2019" },
+    { t: "Competencia laboral certificada: orientar formación presencial · SENA", f: "" },
   ],
 };
 
